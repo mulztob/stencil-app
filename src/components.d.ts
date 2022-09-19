@@ -5,62 +5,67 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { IFilm } from "swapi-ts";
 import { MatchResults } from "@stencil-community/router";
 export namespace Components {
-    interface AppHome {
+    interface AppRoot {
     }
-    interface AppProfile {
+    interface FilmsDetails {
+        "films": IFilm[];
         "match": MatchResults;
     }
-    interface AppRoot {
+    interface FilmsList {
+        "films": IFilm[];
     }
 }
 declare global {
-    interface HTMLAppHomeElement extends Components.AppHome, HTMLStencilElement {
-    }
-    var HTMLAppHomeElement: {
-        prototype: HTMLAppHomeElement;
-        new (): HTMLAppHomeElement;
-    };
-    interface HTMLAppProfileElement extends Components.AppProfile, HTMLStencilElement {
-    }
-    var HTMLAppProfileElement: {
-        prototype: HTMLAppProfileElement;
-        new (): HTMLAppProfileElement;
-    };
     interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
     }
     var HTMLAppRootElement: {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLFilmsDetailsElement extends Components.FilmsDetails, HTMLStencilElement {
+    }
+    var HTMLFilmsDetailsElement: {
+        prototype: HTMLFilmsDetailsElement;
+        new (): HTMLFilmsDetailsElement;
+    };
+    interface HTMLFilmsListElement extends Components.FilmsList, HTMLStencilElement {
+    }
+    var HTMLFilmsListElement: {
+        prototype: HTMLFilmsListElement;
+        new (): HTMLFilmsListElement;
+    };
     interface HTMLElementTagNameMap {
-        "app-home": HTMLAppHomeElement;
-        "app-profile": HTMLAppProfileElement;
         "app-root": HTMLAppRootElement;
+        "films-details": HTMLFilmsDetailsElement;
+        "films-list": HTMLFilmsListElement;
     }
 }
 declare namespace LocalJSX {
-    interface AppHome {
-    }
-    interface AppProfile {
-        "match"?: MatchResults;
-    }
     interface AppRoot {
     }
+    interface FilmsDetails {
+        "films"?: IFilm[];
+        "match"?: MatchResults;
+    }
+    interface FilmsList {
+        "films"?: IFilm[];
+    }
     interface IntrinsicElements {
-        "app-home": AppHome;
-        "app-profile": AppProfile;
         "app-root": AppRoot;
+        "films-details": FilmsDetails;
+        "films-list": FilmsList;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
-            "app-profile": LocalJSX.AppProfile & JSXBase.HTMLAttributes<HTMLAppProfileElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "films-details": LocalJSX.FilmsDetails & JSXBase.HTMLAttributes<HTMLFilmsDetailsElement>;
+            "films-list": LocalJSX.FilmsList & JSXBase.HTMLAttributes<HTMLFilmsListElement>;
         }
     }
 }

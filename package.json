@@ -1,8 +1,8 @@
 {
-  "name": "gettingstarted",
+  "name": "starwarsapi-stencil-testapp",
   "private": true,
   "version": "0.0.1",
-  "description": "Stencil App Starter",
+  "description": "SW Api Test App",
   "scripts": {
     "build": "stencil build",
     "start": "stencil build --dev --watch --serve",
@@ -13,10 +13,16 @@
   "devDependencies": {
     "@stencil-community/router": "^1.0.2",
     "@stencil/core": "2.13.0",
+    "@stencil/eslint-plugin": "^0.4.0",
     "@types/jest": "^27.0.3",
+    "eslint": "^7.32.0",
     "jest": "^27.4.5",
     "jest-cli": "^27.4.5",
-    "puppeteer": "^10.0.0"
+    "puppeteer": "^10.0.0",
+    "stencil-router-v2": "^0.6.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "swapi-ts": "^1.0.1"
+  }
 }
