@@ -25,21 +25,10 @@ export class FilmsDetails {
       <div class="films-details">
         <h1>{this.film?.title}</h1>
         <p>{this.film.opening_crawl}</p>
-        <table>
-          <tr>
-            <td>Created</td>
-            <td>{this.film.created}</td>
-          </tr>
-          <tr>
-            <td>Episode (id)</td>
-            <td>{this.film.episode_id}</td>
-          </tr>
-          <tr>
-            <td>Director</td>
-            <td>{this.film.director}</td>
-          </tr>
-        </table>
-        <hr></hr>
+        <h3>Created by {this.film.created}</h3>
+        <h3>Episode {this.film.episode_id}</h3>
+        <h3>Directored by {this.film.director}</h3>
+        <hr />
         <div class="card-container">
           {this.film.characters.map(c => (
             <people-card person={c}></people-card>
