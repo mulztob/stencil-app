@@ -1,3 +1,14 @@
 .films-details {
   padding: 10px;
 }
+
+div.card-container {
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+people-card {
+
+  width: 33%;
+}

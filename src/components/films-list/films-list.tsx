@@ -1,5 +1,5 @@
-import { Component, h, Prop } from '@stencil/core';
-import { IFilm } from 'swapi-ts';
+import { Component, h } from '@stencil/core';
+import state from '../../store';
 
 @Component({
   tag: 'films-list',
@@ -7,16 +7,14 @@ import { IFilm } from 'swapi-ts';
   shadow: true,
 })
 export class FilmsList {
-  @Prop() films: IFilm[];
-
   render() {
-    return <div class="films-list">{this.films?.length > 0 ? this.renderList() : ''}</div>;
+    return <div class="films-list">{state.films?.length > 0 ? this.renderList() : ''}</div>;
   }
 
   renderList() {
     return (
       <div>
-        {this.films?.map(film => (
+        {state.films?.map(film => (
           <p>
             <stencil-route-link url={`/films/${film.episode_id}`}>
               <button>

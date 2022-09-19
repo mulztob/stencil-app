@@ -5,17 +5,18 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { IFilm } from "swapi-ts";
 import { MatchResults } from "@stencil-community/router";
+import { IPeople } from "swapi-ts";
 export namespace Components {
     interface AppRoot {
     }
     interface FilmsDetails {
-        "films": IFilm[];
         "match": MatchResults;
     }
     interface FilmsList {
-        "films": IFilm[];
+    }
+    interface PeopleCard {
+        "person": IPeople;
     }
 }
 declare global {
@@ -37,26 +38,35 @@ declare global {
         prototype: HTMLFilmsListElement;
         new (): HTMLFilmsListElement;
     };
+    interface HTMLPeopleCardElement extends Components.PeopleCard, HTMLStencilElement {
+    }
+    var HTMLPeopleCardElement: {
+        prototype: HTMLPeopleCardElement;
+        new (): HTMLPeopleCardElement;
+    };
     interface HTMLElementTagNameMap {
         "app-root": HTMLAppRootElement;
         "films-details": HTMLFilmsDetailsElement;
         "films-list": HTMLFilmsListElement;
+        "people-card": HTMLPeopleCardElement;
     }
 }
 declare namespace LocalJSX {
     interface AppRoot {
     }
     interface FilmsDetails {
-        "films"?: IFilm[];
         "match"?: MatchResults;
     }
     interface FilmsList {
-        "films"?: IFilm[];
+    }
+    interface PeopleCard {
+        "person"?: IPeople;
     }
     interface IntrinsicElements {
         "app-root": AppRoot;
         "films-details": FilmsDetails;
         "films-list": FilmsList;
+        "people-card": PeopleCard;
     }
 }
 export { LocalJSX as JSX };
@@ -66,6 +76,7 @@ declare module "@stencil/core" {
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "films-details": LocalJSX.FilmsDetails & JSXBase.HTMLAttributes<HTMLFilmsDetailsElement>;
             "films-list": LocalJSX.FilmsList & JSXBase.HTMLAttributes<HTMLFilmsListElement>;
+            "people-card": LocalJSX.PeopleCard & JSXBase.HTMLAttributes<HTMLPeopleCardElement>;
         }
     }
 }

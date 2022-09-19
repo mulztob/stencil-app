@@ -1,6 +1,7 @@
 import { Component, Prop, h } from '@stencil/core';
 import { MatchResults } from '@stencil-community/router';
 import { IFilm } from 'swapi-ts';
+import state from '../../store';
 
 @Component({
   tag: 'films-details',
@@ -8,14 +9,12 @@ import { IFilm } from 'swapi-ts';
   shadow: true,
 })
 export class FilmsDetails {
-  @Prop() films: IFilm[];
   @Prop() match: MatchResults;
   film: IFilm;
 
   componentWillLoad() {
-    if (this.match && this.match.params.id && this.films) {
-      // console.log(this.films);
-      const r = this.films.filter(f => f.episode_id == this.match.params.id);
+    if (this.match && this.match.params.id && state.films) {
+      const r = state.films.filter(f => f.episode_id == this.match.params.id);
       this.film = r.length > 0 ? (this.film = r[0]) : (this.film = null);
       console.log(this.film);
     }
@@ -32,7 +31,7 @@ export class FilmsDetails {
             <td>{this.film.created}</td>
           </tr>
           <tr>
-            <td>Episode</td>
+            <td>Episode (id)</td>
             <td>{this.film.episode_id}</td>
           </tr>
           <tr>
@@ -40,6 +39,12 @@ export class FilmsDetails {
             <td>{this.film.director}</td>
           </tr>
         </table>
+        <hr></hr>
+        <div class="card-container">
+          {this.film.characters.map(c => (
+            <people-card person={c}></people-card>
+          ))}
+        </div>
         <stencil-route-link url="/films">
           <button>back</button>
         </stencil-route-link>

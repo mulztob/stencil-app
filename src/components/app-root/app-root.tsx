@@ -1,6 +1,6 @@
-import { Component, h, State } from '@stencil/core';
+import { Component, h } from '@stencil/core';
 import * as Swapi from 'swapi-ts';
-import { IFilm } from 'swapi-ts';
+import state from '../../store';
 
 @Component({
   tag: 'app-root',
@@ -8,13 +8,18 @@ import { IFilm } from 'swapi-ts';
   shadow: true,
 })
 export class AppRoot {
-  @State() films: IFilm[];
   componentWillLoad() {
     //could be expanded with .then(films => films.populateAll('xxx'))
-    Swapi.Films.find().then(films => {
-      this.films = films.resources.map(f => f.value);
-      console.log(this.films);
-    });
+    Swapi.Films.find()
+      .then(f => f.populateAll('characters'))
+      .then(f => f.populateAll('vehicles'))
+      .then(f => f.populateAll('species'))
+      .then(f => f.populateAll('planets'))
+      .then(f => f.populateAll('starships'))
+      .then(films => {
+        state.films = films.resources.map(f => f.value);
+        console.log('state.films:', state.films);
+      });
   }
   render() {
     return (
@@ -32,9 +37,9 @@ export class AppRoot {
     return (
       <stencil-router>
         <stencil-route-switch scrollTopOffset={0}>
-          <stencil-route url="/" component="films-list" exact={true} componentProps={{ films: this.films }} />
-          <stencil-route url="/films" component="films-list" exact={true} componentProps={{ films: this.films }} />
-          <stencil-route url="/films/:id" component="films-details" componentProps={{ films: this.films }} />
+          <stencil-route url="/" component="films-list" exact={true} />
+          <stencil-route url="/films" component="films-list" exact={true} />
+          <stencil-route url="/films/:id" component="films-details" />
         </stencil-route-switch>
       </stencil-router>
     );
