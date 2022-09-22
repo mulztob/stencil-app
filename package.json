@@ -8,7 +8,8 @@
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "generate": "stencil generate",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@stencil-community/router": "^1.0.2",
@@ -25,6 +26,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "patch-package": "^6.4.7",
     "swapi-ts": "^1.0.1"
   }
 }

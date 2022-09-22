@@ -1,0 +1,108 @@
+diff --git a/node_modules/swapi-ts/dist/SWApi.js b/node_modules/swapi-ts/dist/SWApi.js
+index fab6cac..da74cb8 100644
+--- a/node_modules/swapi-ts/dist/SWApi.js
++++ b/node_modules/swapi-ts/dist/SWApi.js
+@@ -34,10 +34,10 @@ class Resource {
+     }
+     async populateSingle(path, obj) {
+         if (Array.isArray(obj[path])) {
+-            obj[path] = await Promise.all(obj[path].map(url => request(url.replace('http', 'https'))));
++            obj[path] = await Promise.all(obj[path].map(url => request(url.replace('http:', 'https:'))));
+             return this;
+         }
+-        obj[path] = await request(obj[path].replace('http', 'https'));
++        obj[path] = await request(obj[path].replace('http:', 'https:'));
+         return this;
+     }
+     populateRec(path, obj) {
+@@ -57,39 +57,39 @@ class Resource {
+ function collectionBuilder(resource) {
+     var _a;
+     return _a = class SWCollection {
+-            constructor(unparsedResources) {
+-                this.resources = [];
+-                this.resources = unparsedResources.map(resource => new Resource(resource));
+-            }
+-            async populateAll(path) {
+-                this.resources = await Promise.all(this.resources.map(obj => obj.populate(path)));
+-                return this;
+-            }
+-            static getPage(page = 1, search) {
+-                if (search) {
+-                    return request(`${SWCollection.root}?page=${page}&search=${search}`);
+-                }
+-                return request(`${SWCollection.root}?page=${page}`);
+-            }
+-            static async find(predicate) {
+-                const { count, results: firstResult } = await SWCollection.getPage();
+-                const pages = Math.ceil(count / firstResult.length);
+-                const left = Array.from({
+-                    length: (pages - 1)
+-                }, (_, i) => SWCollection.getPage(2 + i));
+-                const restResults = await Promise.all(left);
+-                const totalResults = [{
+-                        results: firstResult
+-                    }, ...restResults].reduce((allResults, { results }) => {
+-                    return [...allResults, ...results];
+-                }, []);
+-                return new SWCollection(_.filter(totalResults, predicate));
+-            }
+-            static async findBySearch(predicate) {
+-                const pages = await Promise.all(predicate.map(query => this.getPage(1, query)));
+-                return new SWCollection(_.flatMap(pages, 'results'));
++        constructor(unparsedResources) {
++            this.resources = [];
++            this.resources = unparsedResources.map(resource => new Resource(resource));
++        }
++        async populateAll(path) {
++            this.resources = await Promise.all(this.resources.map(obj => obj.populate(path)));
++            return this;
++        }
++        static getPage(page = 1, search) {
++            if (search) {
++                return request(`${SWCollection.root}?page=${page}&search=${search}`);
+             }
+-        },
++            return request(`${SWCollection.root}?page=${page}`);
++        }
++        static async find(predicate) {
++            const { count, results: firstResult } = await SWCollection.getPage();
++            const pages = Math.ceil(count / firstResult.length);
++            const left = Array.from({
++                length: (pages - 1)
++            }, (_, i) => SWCollection.getPage(2 + i));
++            const restResults = await Promise.all(left);
++            const totalResults = [{
++                results: firstResult
++            }, ...restResults].reduce((allResults, { results }) => {
++                return [...allResults, ...results];
++            }, []);
++            return new SWCollection(_.filter(totalResults, predicate));
++        }
++        static async findBySearch(predicate) {
++            const pages = await Promise.all(predicate.map(query => this.getPage(1, query)));
++            return new SWCollection(_.flatMap(pages, 'results'));
++        }
++    },
+         _a.root = `https://swapi.dev/api/${resource}/`,
+         _a;
+ }
+diff --git a/node_modules/swapi-ts/src/SWApi.ts b/node_modules/swapi-ts/src/SWApi.ts
+index a240a0a..577a1a2 100644
+--- a/node_modules/swapi-ts/src/SWApi.ts
++++ b/node_modules/swapi-ts/src/SWApi.ts
+@@ -147,12 +147,12 @@ class Resource < S > {
+ 
+   private async populateSingle(path: string, obj: any) {
+     if (Array.isArray(obj[path])) {
+-      obj[path] = await Promise.all((obj[path] as string[]).map(url => request(url.replace('http', 'https'))));
++      obj[path] = await Promise.all((obj[path] as string[]).map(url => request(url.replace('http:', 'https:'))));
+ 
+       return this;
+     }
+ 
+-    obj[path] = await request((obj[path] as string).replace('http', 'https'));
++    obj[path] = await request((obj[path] as string).replace('http:', 'https:'));
+ 
+     return this;
+   }
