@@ -25,7 +25,7 @@ export class AppRoot {
     return (
       <div>
         <header>
-          <h1>SW API Test App using Stencil.JS</h1>
+          <h1>Star Wars API Test App using Stencil.JS</h1>
         </header>
 
         <main>{this.routerOutlet()}</main>

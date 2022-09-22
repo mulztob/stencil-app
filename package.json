@@ -2,7 +2,7 @@
   "name": "starwarsapi-stencil-testapp",
   "private": true,
   "version": "0.0.1",
-  "description": "SW Api Test App",
+  "description": "StarWars Api Test App (swapi.dev)",
   "scripts": {
     "build": "stencil build",
     "start": "stencil build --dev --watch --serve",
