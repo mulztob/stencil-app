@@ -23,21 +23,26 @@ export class FilmsDetails {
   render() {
     return (
       <div class="films-details">
+        <stencil-route-link url="/films">
+          <button>back</button>
+        </stencil-route-link>
         <h1>{this.film?.title}</h1>
         <p>{this.film.opening_crawl}</p>
         <h3>Created by {this.film.created}</h3>
         <h3>Episode {this.film.episode_id}</h3>
-        <h3>Directored by {this.film.director}</h3>
+        <h3>Directed by {this.film.director}</h3>
         <hr />
-        <div class="card-container">
-          {this.film.characters.map(c => (
-            <people-card person={c}></people-card>
-          ))}
-        </div>
-        <stencil-route-link url="/films">
-          <button>back</button>
-        </stencil-route-link>
+        <CardContainer people={this.film.characters}></CardContainer>
       </div>
     );
   }
 }
+const CardContainer = props => {
+  return (
+    <div class="card-container">
+      {props.people.map(person => (
+        <people-card person={person}></people-card>
+      ))}
+    </div>
+  );
+};
