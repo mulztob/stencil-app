@@ -1,5 +1,5 @@
 import { Component, h } from '@stencil/core';
-import store from '../../store';
+import store from '@store/store';
 
 @Component({
   tag: 'films-list',

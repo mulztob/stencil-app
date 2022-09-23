@@ -1,7 +1,7 @@
 import { Component, Prop, h } from '@stencil/core';
 import { MatchResults } from '@stencil-community/router';
 import { IFilm } from 'swapi-ts';
-import store from '../../store';
+import store from '@store/store';
 
 @Component({
   tag: 'films-details',

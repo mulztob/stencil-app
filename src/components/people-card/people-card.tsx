@@ -1,8 +1,7 @@
 import { Component, h, Prop } from '@stencil/core';
-// import state from '../../films-store';
 import { IPeople, ISpecie } from 'swapi-ts';
 import * as SWApi from 'swapi-ts';
-import store from '../../store';
+import store from '@store/store';
 
 @Component({
   tag: 'people-card',

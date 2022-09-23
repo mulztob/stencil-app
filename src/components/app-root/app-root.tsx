@@ -1,6 +1,6 @@
 import { Component, h } from '@stencil/core';
 import * as Swapi from 'swapi-ts';
-import store from '../../store';
+import store from '@store/store';
 
 @Component({
   tag: 'app-root',

@@ -1,10 +1,8 @@
 import { newE2EPage } from '@stencil/core/testing';
-import store from '../../store';
-import { film4 } from '../../store.test';
+import { resetStore } from '@store/store.test';
 
 beforeEach(() => {
-  store.dispose();
-  store.state.films = [].concat(film4);
+  resetStore();
 });
 
 describe('films-list', () => {
