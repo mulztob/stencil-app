@@ -1,20 +1,28 @@
 import { newE2EPage } from '@stencil/core/testing';
+import store from '../../store';
+import { film4 } from '../../store.test';
+
+beforeEach(() => {
+  store.dispose();
+  store.state.films = [].concat(film4);
+});
 
 describe('films-details', () => {
   it('renders', async () => {
-    const page = await newE2EPage();
+    const page = await newE2EPage({ url: '/films/4' });
     await page.setContent('<films-details></films-details>');
-
+    await page.waitForChanges();
     const element = await page.find('films-details');
     expect(element).toHaveClass('hydrated');
   });
 
   it('displays the specified name', async () => {
-    const page = await newE2EPage({ url: '/profile/joseph' });
+    const page = await newE2EPage({ url: '/films/4' });
 
-    const profileElement = await page.find('app-root >>> films-details');
-    const element = profileElement.shadowRoot.querySelector('div');
-    expect(element.textContent).toContain('Hello! My name is Joseph.');
+    const filmTitle = await page.find('films-details >>> div');
+    // console.log(filmTitle);
+    const element = filmTitle.shadowRoot.querySelector('div');
+    expect(element.textContent).toContain('A New Hope (Episode 4)');
   });
 
   // it('includes a div with the class "films-details"', async () => {

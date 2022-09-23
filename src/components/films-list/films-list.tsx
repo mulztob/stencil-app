@@ -1,5 +1,5 @@
 import { Component, h } from '@stencil/core';
-import state from '../../store';
+import store from '../../store';
 
 @Component({
   tag: 'films-list',
@@ -8,13 +8,13 @@ import state from '../../store';
 })
 export class FilmsList {
   render() {
-    return <div class="films-list">{state.films?.length > 0 ? this.renderList() : ''}</div>;
+    return <div class="films-list">{store.state.films?.length > 0 ? this.renderList() : ''}</div>;
   }
 
   renderList() {
     return (
       <div>
-        {state.films?.map(film => (
+        {store.state.films?.map(film => (
           <p>
             <stencil-route-link url={`/films/${film.episode_id}`}>
               <button>

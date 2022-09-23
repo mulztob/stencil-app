@@ -1,6 +1,6 @@
 import { Component, h } from '@stencil/core';
 import * as Swapi from 'swapi-ts';
-import state from '../../store';
+import store from '../../store';
 
 @Component({
   tag: 'app-root',
@@ -10,15 +10,15 @@ import state from '../../store';
 export class AppRoot {
   componentWillLoad() {
     //could be expanded with .then(films => films.populateAll('xxx'))
-    Swapi.Films.find()
+    return Swapi.Films.find()
       .then(f => f.populateAll('characters'))
       .then(f => f.populateAll('vehicles'))
       .then(f => f.populateAll('species'))
       .then(f => f.populateAll('planets'))
       .then(f => f.populateAll('starships'))
       .then(films => {
-        state.films = films.resources.map(f => f.value);
-        console.log('state.films:', state.films);
+        store.state.films = films.resources.map(f => f.value);
+        // console.log('state.films:', store.state.films);
       });
   }
   render() {

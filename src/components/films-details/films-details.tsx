@@ -1,7 +1,7 @@
 import { Component, Prop, h } from '@stencil/core';
 import { MatchResults } from '@stencil-community/router';
 import { IFilm } from 'swapi-ts';
-import state from '../../store';
+import store from '../../store';
 
 @Component({
   tag: 'films-details',
@@ -13,9 +13,9 @@ export class FilmsDetails {
   film: IFilm;
 
   componentWillLoad() {
-    if (this.match && this.match.params.id && state.films) {
-      const r = state.films.filter(f => f.episode_id == this.match.params.id);
-      this.film = r.length > 0 ? (this.film = r[0]) : (this.film = null);
+    if (this.match && this.match.params.id && store.state.films) {
+      const filmWithRightId = store.state.films.filter(f => f.episode_id == this.match.params.id);
+      this.film = filmWithRightId.length > 0 ? (this.film = filmWithRightId[0]) : (this.film = null);
       console.log(this.film);
     }
   }

@@ -6,17 +6,17 @@ interface State {
   species: Record<string, ISpecie>;
 }
 
-const { state, onChange } = createStore<State>({
+const store = createStore<State>({
   films: [],
   species: {},
 });
 
-onChange('films', value => {
-  state.films = value;
+store.onChange('films', value => {
+  store.state.films = value;
 });
 
-onChange('species', value => {
-  state.species = value;
+store.onChange('species', value => {
+  store.state.species = value;
 });
 
-export default state;
+export default store;

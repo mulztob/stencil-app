@@ -2,7 +2,7 @@ import { Component, h, Prop } from '@stencil/core';
 // import state from '../../films-store';
 import { IPeople, ISpecie } from 'swapi-ts';
 import * as SWApi from 'swapi-ts';
-import state from '../../store';
+import store from '../../store';
 
 @Component({
   tag: 'people-card',
@@ -31,12 +31,12 @@ export class PeopleCard {
   }
 
   private async updateState(maybeResolved: string | ISpecie) {
-    return (state.species[maybeResolved as string] = (await SWApi.Species.find(q => maybeResolved === q.url)).resources.at(0).value);
+    return (store.state.species[maybeResolved as string] = (await SWApi.Species.find(q => maybeResolved === q.url)).resources.at(0).value);
   }
 
   private loadFromState(url: string): ISpecie | string {
     if (url == null) return;
-    return state.species[url] ?? url;
+    return store.state.species[url] ?? url;
   }
 
   private needsSwapiResolve(species: string | ISpecie) {

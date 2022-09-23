@@ -14,4 +14,9 @@ export const config: Config = {
       baseUrl: 'https://myapp.local/',
     },
   ],
+  testing: {
+    browserHeadless: false,
+    browserSlowMo: 20000,
+    browserDevtools: true,
+  },
 };
