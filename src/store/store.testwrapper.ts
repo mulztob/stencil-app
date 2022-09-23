@@ -2,6 +2,7 @@ import { IFilm } from 'swapi-ts';
 import store from './store';
 
 export const resetStore = () => {
+  // store.reset();
   store.dispose();
   store.state.films = [film1];
   store.state.species = {};

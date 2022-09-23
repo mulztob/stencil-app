@@ -1,5 +1,5 @@
 import { newE2EPage } from '@stencil/core/testing';
-import { resetStore } from '@store/store.testwrapper';
+import { resetStore } from '../../store/store.testwrapper';
 
 beforeEach(() => {
   resetStore();
@@ -8,18 +8,21 @@ beforeEach(() => {
 describe('films-list', () => {
   it('renders', async () => {
     const page = await newE2EPage();
-    // await page.setContent('<films-list></films-list>');
+    await page.setContent('<films-list></films-list>');
+    await page.waitForChanges();
 
     const element = await page.find('films-list');
     expect(element).toHaveClass('hydrated');
   });
 
-  it('contains a "Profile Page" button', async () => {
+  it('contains a "The Phantom Menace (Episode 1)" button', async () => {
     const page = await newE2EPage();
-    // await page.setContent('<films-list></films-list>');
+    await page.setContent('<films-list></films-list>');
+    await page.waitForChanges();
+
     // console.log('page: ', page);
-    const element = await page.find('films-list >>> div');
-    console.log('element: ', element);
-    expect(element.textContent).toEqual('Profile page');
+    const element = await page.findAll('films-list >>> * >>> button');
+    console.log('element: ', element[0].innerText, element.length);
+    expect(element).toEqualText('The Phantom Menace (Episode 1)');
   });
 });
