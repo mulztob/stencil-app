@@ -3,12 +3,13 @@ import store from './store';
 
 export const resetStore = () => {
   store.dispose();
-  store.state.films = [].concat(film4);
+  store.state.films = [film1];
   store.state.species = {};
-  console.log('store state: ', store.state);
+  // console.log('store state (films): ', store.state.films);
+  // console.log('store state (species): ', store.state.species);
 };
 
-const film4: IFilm = {
+const film1: IFilm = {
   title: 'The Phantom Menace',
   episode_id: '1',
   opening_crawl:

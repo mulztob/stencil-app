@@ -8,7 +8,7 @@ import store from '@store/store';
 })
 export class FilmsList {
   render() {
-    return <div class="films-list">{store.state.films?.length > 0 ? this.renderList() : ''}</div>;
+    return <div class="films-list">{store.state.films?.length > 0 ? this.renderList() : 'no content'}</div>;
   }
 
   renderList() {
