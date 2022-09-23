@@ -1,5 +1,5 @@
 import { newE2EPage } from '@stencil/core/testing';
-import { resetStore } from '@store/store.test';
+import { resetStore } from '@store/store.testwrapper';
 
 beforeEach(() => {
   resetStore();
