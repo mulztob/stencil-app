@@ -1,8 +1,8 @@
 import { newSpecPage } from '@stencil/core/testing';
 import { PeopleCard } from './people-card';
-import * as swapi from 'swapi-ts';
+import { IPeople } from 'swapi-ts';
 
-const dummyPerson: swapi.IPeople = {
+const dummyPerson: IPeople = {
   birth_year: '',
   eye_color: '',
   films: [],

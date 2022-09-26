@@ -23,6 +23,6 @@ describe('films-list', () => {
     // console.log('page: ', page);
     const element = await page.findAll('films-list >>> * >>> button');
     console.log('element: ', element[0].innerText, element.length);
-    expect(element).toEqualText('The Phantom Menace (Episode 1)');
+    expect(element[0]).toEqualText('The Phantom Menace (Episode 1)');
   });
 });

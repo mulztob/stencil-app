@@ -1,6 +1,5 @@
 import { Component, h, Prop } from '@stencil/core';
-import { IPeople, ISpecie } from 'swapi-ts';
-import * as SWApi from 'swapi-ts';
+import { IPeople, ISpecie, Species } from 'swapi-ts';
 import store from '@store/store';
 
 @Component({
@@ -30,7 +29,7 @@ export class PeopleCard {
   }
 
   private async updateState(maybeResolved: string | ISpecie) {
-    return (store.state.species[maybeResolved as string] = (await SWApi.Species.find(q => maybeResolved === q.url)).resources.at(0).value);
+    return (store.state.species[maybeResolved as string] = (await Species.find(q => maybeResolved === q.url)).resources.at(0).value);
   }
 
   private loadFromState(url: string): ISpecie | string {

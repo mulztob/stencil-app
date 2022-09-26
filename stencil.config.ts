@@ -6,7 +6,7 @@ export const config: Config = {
   globalStyle: 'src/global/app.css',
   globalScript: 'src/global/app.ts',
   taskQueue: 'async',
-  tsconfig: './tsconfig.json',
+  // tsconfig: './tsconfig.json',
   outputTargets: [
     {
       type: 'www',
@@ -19,5 +19,10 @@ export const config: Config = {
     browserHeadless: false,
     browserSlowMo: 20000,
     browserDevtools: true,
+    // transform: {
+    // '\\.[jt]sx?$': 'babel-jest',
+    // '\\.ts$': 'babel-jest',
+    // },
   },
+  // maxConcurrentWorkers: 1,
 };

@@ -10,23 +10,25 @@ beforeEach(() => {
 async function setupComponent() {
   const page = await newE2EPage();
 
-  const dummyMatch: MatchResults = {
-    path: '',
-    url: '',
-    isExact: false,
-    params: {
-      id: '1',
-    },
-  };
-
   await page.setContent('<films-details></films-details>');
 
   await page.$eval('films-details', (elm: any) => {
+    const dummyMatch: MatchResults = {
+      path: '',
+      url: '',
+      isExact: false,
+      params: {
+        id: '1',
+      },
+    };
+
     // within the browser's context
     // let's set new property values on the component
     elm.match = dummyMatch;
   });
+
   await page.waitForChanges();
+  // console.log('page#1', page);
   return page;
 }
 
@@ -40,10 +42,13 @@ describe('films-details', () => {
 
   it('displays the specified name "The Phantom Menace"', async () => {
     const page = await setupComponent();
-    const filmTitle = await page.find('films-details >>> div');
-    // console.log(filmTitle);
-    const element = filmTitle.shadowRoot.querySelector('div');
-    expect(element.textContent).toContain('The Phantom Menace');
+    // console.log('page#2:', page);
+    const filmTitle = await page.find('films-details >>> h1');
+    console.log('film#1', filmTitle);
+
+    // const element = filmTitle.shadowRoot.querySelector('div');
+    // const element = filmTitle.querySelector('div');
+    expect(filmTitle.textContent).toContain('The Phantom Menace');
   });
 
   // it('includes a div with the class "films-details"', async () => {
