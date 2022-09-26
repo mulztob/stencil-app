@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, h, State } from '@stencil/core';
 import { IFilm } from 'swapi-ts';
 import store from '@store/store';
 import Router from '@app/router';
@@ -9,15 +9,15 @@ import Router from '@app/router';
   shadow: true,
 })
 export class FilmsDetails {
-  @Prop() id: string;
+  @Prop() episodeId: string;
   film: IFilm;
 
   componentWillLoad() {
-    console.log(`load..., id: ${this.id}, store: ${store}`);
+    console.log(`load..., episodeId: ${this.episodeId}, store: ${store}`);
     if (store.state.films) {
-      const filmWithRightId = store.state.films.filter(f => f.episode_id == this.id);
+      const filmWithRightId = store.state.films.filter(f => f.episode_id == this.episodeId);
       this.film = filmWithRightId.length > 0 ? (this.film = filmWithRightId[0]) : (this.film = null);
-      console.log(this.film);
+      console.log('film: ', this.film);
     }
   }
 

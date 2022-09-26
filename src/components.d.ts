@@ -10,7 +10,7 @@ export namespace Components {
     interface AppRoot {
     }
     interface FilmsDetails {
-        "id": string;
+        "episodeId": string;
     }
     interface FilmsList {
     }
@@ -54,7 +54,7 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface FilmsDetails {
-        "id"?: string;
+        "episodeId"?: string;
     }
     interface FilmsList {
     }

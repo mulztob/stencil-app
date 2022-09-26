@@ -38,7 +38,7 @@ export class AppRoot {
   routerOutlet() {
     return (
       <Router.Switch>
-        <Route path={match('/films/:id')} render={({ id }) => <films-details id={id}></films-details>}></Route>
+        <Route path={match('/films/:id')} render={({ id }) => <films-details episodeId={id}></films-details>}></Route>
 
         <Route path="/films">
           <films-list></films-list>
