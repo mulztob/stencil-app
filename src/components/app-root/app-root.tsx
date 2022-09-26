@@ -1,6 +1,8 @@
 import { Component, h } from '@stencil/core';
 import * as Swapi from 'swapi-ts';
 import store from '@store/store';
+import Router from '@app/router';
+import { Route, match } from 'stencil-router-v2';
 
 @Component({
   tag: 'app-root',
@@ -35,13 +37,17 @@ export class AppRoot {
 
   routerOutlet() {
     return (
-      <stencil-router>
-        <stencil-route-switch scrollTopOffset={0}>
-          <stencil-route url="/" component="films-list" exact={true} />
-          <stencil-route url="/films" component="films-list" exact={true} />
-          <stencil-route url="/films/:id" component="films-details" />
-        </stencil-route-switch>
-      </stencil-router>
+      <Router.Switch>
+        <Route path={match('/films/:id')} render={({ id }) => <films-details id={id}></films-details>}></Route>
+
+        <Route path="/films">
+          <films-list></films-list>
+        </Route>
+
+        <Route path="/">
+          <films-list></films-list>
+        </Route>
+      </Router.Switch>
     );
   }
 }

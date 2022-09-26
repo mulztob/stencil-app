@@ -1,7 +1,7 @@
 import { Component, Prop, h } from '@stencil/core';
-import { MatchResults } from '@stencil-community/router';
 import { IFilm } from 'swapi-ts';
 import store from '@store/store';
+import Router from '@app/router';
 
 @Component({
   tag: 'films-details',
@@ -9,12 +9,13 @@ import store from '@store/store';
   shadow: true,
 })
 export class FilmsDetails {
-  @Prop() match: MatchResults;
+  @Prop() id: string;
   film: IFilm;
 
   componentWillLoad() {
-    if (this.match && this.match.params.id && store.state.films) {
-      const filmWithRightId = store.state.films.filter(f => f.episode_id == this.match.params.id);
+    console.log(`load..., id: ${this.id}, store: ${store}`);
+    if (store.state.films) {
+      const filmWithRightId = store.state.films.filter(f => f.episode_id == this.id);
       this.film = filmWithRightId.length > 0 ? (this.film = filmWithRightId[0]) : (this.film = null);
       console.log(this.film);
     }
@@ -23,9 +24,8 @@ export class FilmsDetails {
   render() {
     return (
       <div class="films-details">
-        <stencil-route-link url="/films">
-          <button>back</button>
-        </stencil-route-link>
+        {console.log(this.film)}
+        <button onClick={() => Router.push('/films')}>back</button>
         <h1>{this.film?.title}</h1>
         <p>{this.film.opening_crawl}</p>
         <h3>Created by {this.film.created}</h3>

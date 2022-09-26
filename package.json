@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "description": "StarWars Api Test App (swapi.dev)",
+  "license": "MIT",
   "scripts": {
     "build": "stencil build",
     "start": "stencil build --dev --watch --serve",
@@ -12,19 +13,18 @@
     "postinstall": "patch-package"
   },
   "devDependencies": {
-    "@stencil-community/router": "^1.0.2",
-    "@stencil/core": "2.13.0",
+    "@stencil/core": "2.18.0",
     "@stencil/store": "^2.0.1",
-    "@types/jest": "^27.0.3",
+    "@types/jest": "^29.0.3",
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.0",
-    "eslint": "^8.23.1",
-    "jest": "^27.0.3",
-    "jest-cli": "^27.0.3",
-    "puppeteer": "^10.0.0",
+    "eslint": "^8.24.0",
+    "jest": "^29.0.3",
+    "jest-cli": "^29.0.3",
+    "puppeteer": "^18.0.5",
+    "stencil-router-v2": "^0.6.0",
     "typescript": "^4.8.3"
   },
-  "license": "MIT",
   "dependencies": {
     "patch-package": "^6.4.7",
     "swapi-ts": "^1.0.1"

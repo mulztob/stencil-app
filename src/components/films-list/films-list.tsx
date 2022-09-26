@@ -1,3 +1,4 @@
+import Router from '@app/router';
 import { Component, h } from '@stencil/core';
 import store from '@store/store';
 
@@ -16,11 +17,9 @@ export class FilmsList {
       <div>
         {store.state.films?.map(film => (
           <p>
-            <stencil-route-link url={`/films/${film.episode_id}`}>
-              <button>
-                {film.title} (Episode {film.episode_id})
-              </button>
-            </stencil-route-link>
+            <button onClick={() => Router.push(`/films/${film.episode_id}`)}>
+              {film.title} (Episode {film.episode_id})
+            </button>
           </p>
         ))}
       </div>
