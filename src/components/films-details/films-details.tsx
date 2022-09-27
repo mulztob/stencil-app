@@ -1,6 +1,6 @@
-import { Component, Prop, h, State } from '@stencil/core';
+import { Component, Prop, h } from '@stencil/core';
 import { IFilm } from 'swapi-ts';
-import store from '@store/store';
+import { state } from '@store/store';
 import Router from '@app/router';
 
 @Component({
@@ -13,9 +13,9 @@ export class FilmsDetails {
   film: IFilm;
 
   componentWillLoad() {
-    console.log(`load..., episodeId: ${this.episodeId}, store: ${store}`);
-    if (store.state.films) {
-      const filmWithRightId = store.state.films.filter(f => f.episode_id == this.episodeId);
+    console.log(`film-details#load`, this.episodeId, state.films);
+    if (state.films) {
+      const filmWithRightId = state.films.filter(f => f.episode_id == this.episodeId);
       this.film = filmWithRightId.length > 0 ? (this.film = filmWithRightId[0]) : (this.film = null);
       console.log('film: ', this.film);
     }
@@ -24,7 +24,7 @@ export class FilmsDetails {
   render() {
     return (
       <div class="films-details">
-        {console.log(this.film)}
+        {console.log('films-details#render', this.film)}
         <button onClick={() => Router.push('/films')}>back</button>
         <h1>{this.film?.title}</h1>
         <p>{this.film.opening_crawl}</p>

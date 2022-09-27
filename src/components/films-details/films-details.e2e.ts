@@ -1,30 +1,23 @@
 import { newE2EPage } from '@stencil/core/testing';
-import { MatchResults } from '@stencil-community/router';
-
 import { resetStore } from '../../store/store.testwrapper';
+// import store from '../../store/store';
+// import { jest } from '@jest/globals';
 
 beforeEach(() => {
-  resetStore();
+  // resetStore();
+  // console.log('beforeEach, store.state.films: ', store.state.films);
 });
 
 async function setupComponent() {
   const page = await newE2EPage();
 
-  await page.setContent('<films-details></films-details>');
+  // console.log('setupComponent, store.state.films: ', store.state.films);
 
-  await page.$eval('films-details', (elm: any) => {
-    const dummyMatch: MatchResults = {
-      path: '',
-      url: '',
-      isExact: false,
-      params: {
-        id: '1',
-      },
-    };
-
+  await page.setContent(`<films-details episodeId="'1'"></films-details>`);
+  await page.$eval('films-details', elm => {
     // within the browser's context
     // let's set new property values on the component
-    elm.match = dummyMatch;
+    elm.episodeId = '1';
   });
 
   await page.waitForChanges();
@@ -43,12 +36,12 @@ describe('films-details', () => {
   it('displays the specified name "The Phantom Menace"', async () => {
     const page = await setupComponent();
     // console.log('page#2:', page);
-    const filmTitle = await page.find('films-details >>> h1');
-    console.log('film#1', filmTitle);
+    const filmTitle = await page.find('films-details');
+    console.log('film#1', filmTitle.textContent);
 
     // const element = filmTitle.shadowRoot.querySelector('div');
     // const element = filmTitle.querySelector('div');
-    expect(filmTitle.textContent).toContain('The Phantom Menace');
+    expect(filmTitle.innerHTML).toContain('The Phantom Menace');
   });
 
   // it('includes a div with the class "films-details"', async () => {
