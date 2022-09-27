@@ -1,6 +1,7 @@
 import Router from '@app/router';
-import { Component, h } from '@stencil/core';
-import store from '@store/store';
+import { Component, h, Prop } from '@stencil/core';
+import { state, onChange } from '@store/store';
+import { IFilm } from 'swapi-ts';
 
 @Component({
   tag: 'films-list',
@@ -8,20 +9,36 @@ import store from '@store/store';
   shadow: true,
 })
 export class FilmsList {
-  render() {
-    return <div class="films-list">{store.state.films?.length > 0 ? this.renderList() : 'no content'}</div>;
+  @Prop() films?: IFilm[] = [];
+
+  componentWillLoad() {
+    onChange('films', newFilms => {
+      console.log('onChange', newFilms);
+      this.films = newFilms;
+    });
   }
 
-  renderList() {
+  render() {
+    return (
+      <div class="films-list">
+        {/* {console.log('films-list#render', state.films)} */}
+        {state.films?.length > 0 ? this.renderList(state.films) : this.renderList(this.films)}
+      </div>
+    );
+  }
+
+  renderList(films: IFilm[]) {
     return (
       <div>
-        {store.state.films?.map(film => (
-          <p>
-            <button onClick={() => Router.push(`/films/${film.episode_id}`)}>
-              {film.title} (Episode {film.episode_id})
-            </button>
-          </p>
-        ))}
+        {films.length > 0
+          ? films.map(film => (
+              <div>
+                <button onClick={() => Router.push(`/films/${film.episode_id}`)}>
+                  {film.title} (Episode {film.episode_id})
+                </button>
+              </div>
+            ))
+          : 'no content'}
       </div>
     );
   }
