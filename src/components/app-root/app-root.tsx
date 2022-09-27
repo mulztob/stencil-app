@@ -1,6 +1,6 @@
 import { Component, h } from '@stencil/core';
 import * as Swapi from 'swapi-ts';
-import store from '@store/store';
+import { state } from '@store/store';
 import Router from '@app/router';
 import { Route, match } from 'stencil-router-v2';
 
@@ -19,8 +19,8 @@ export class AppRoot {
       .then(f => f.populateAll('planets'))
       .then(f => f.populateAll('starships'))
       .then(films => {
-        store.state.films = films.resources.map(f => f.value);
-        // console.log('state.films:', store.state.films);
+        state.films = films.resources.map(f => f.value);
+        // console.log('app-root#load', store.state.films);
       });
   }
   render() {

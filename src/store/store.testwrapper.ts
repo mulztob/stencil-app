@@ -1,16 +1,16 @@
 import { IFilm } from 'swapi-ts';
-import store from './store';
+import { dispose, state } from './store';
 
 export const resetStore = () => {
   // store.reset();
-  store.dispose();
-  store.state.films = [film1];
-  store.state.species = {};
+  dispose();
+  state.films = [film1];
+  // store.state.species = {};
   // console.log('store state (films): ', store.state.films);
   // console.log('store state (species): ', store.state.species);
 };
 
-const film1: IFilm = {
+export const film1: IFilm = {
   title: 'The Phantom Menace',
   episode_id: '1',
   opening_crawl:
