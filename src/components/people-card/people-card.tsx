@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Component, h, Prop } from '@stencil/core';
 import { IPeople, ISpecie, Species } from 'swapi-ts';
 import { state } from '@store/store';
@@ -11,8 +12,9 @@ export class PeopleCard {
   @Prop() person: IPeople;
   resolvedSpecies: ISpecie[] = [];
 
-  async componentWillLoad() {
+  async componentWillRender() {
     this.resolvedSpecies = [];
+
     if (this.person?.species?.length > 0) {
       const species = this.person.species;
 
@@ -29,10 +31,11 @@ export class PeopleCard {
   }
 
   private async updateState(maybeResolved: string | ISpecie) {
-    return (state.species[maybeResolved as string] = (await Species.find(q => maybeResolved === q.url)).resources.at(0).value);
+    if (typeof maybeResolved === 'string') return (state.species[maybeResolved as string] = (await Species.find(q => maybeResolved === q.url)).resources.at(0).value);
+    return maybeResolved as ISpecie;
   }
 
-  private loadFromState(url: string): ISpecie | string {
+  private loadFromState(url: string): string | ISpecie {
     if (url == null) return;
     return state.species[url] ?? url;
   }
