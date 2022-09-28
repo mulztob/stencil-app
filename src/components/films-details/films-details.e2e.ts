@@ -1,6 +1,7 @@
 import { newE2EPage } from '@stencil/core/testing';
 import { film1FullDetails } from '../../store/store.testwrapper';
 
+jest.setTimeout(60000);
 async function setupComponent() {
   const page = await newE2EPage();
 
