@@ -1,6 +1,6 @@
 import Router from '@app/router';
 import { Component, h, Prop } from '@stencil/core';
-import { state, onChange } from '@store/store';
+import { state } from '@store/store';
 import { IFilm } from 'swapi-ts';
 
 @Component({
@@ -10,13 +10,6 @@ import { IFilm } from 'swapi-ts';
 })
 export class FilmsList {
   @Prop() films?: IFilm[] = [];
-
-  componentWillLoad() {
-    onChange('films', newFilms => {
-      console.log('onChange', newFilms);
-      this.films = newFilms;
-    });
-  }
 
   render() {
     return (
