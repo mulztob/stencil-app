@@ -11,6 +11,7 @@ export namespace Components {
     }
     interface FilmsDetails {
         "episodeId": string;
+        "film": IFilm;
     }
     interface FilmsList {
         "films"?: IFilm[];
@@ -56,6 +57,7 @@ declare namespace LocalJSX {
     }
     interface FilmsDetails {
         "episodeId"?: string;
+        "film"?: IFilm;
     }
     interface FilmsList {
         "films"?: IFilm[];
