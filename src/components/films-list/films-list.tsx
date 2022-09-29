@@ -14,7 +14,7 @@ export class FilmsList {
   render() {
     return (
       <div class="films-list">
-        {/* {console.log('films-list#render', state.films)} */}
+        {/* {console.log('films-list#render, state', state.films)} */}
         {state.films?.length > 0 ? this.renderList(state.films) : this.renderList(this.films)}
       </div>
     );

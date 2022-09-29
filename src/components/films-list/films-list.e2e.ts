@@ -20,14 +20,11 @@ describe('films-list', () => {
 
     await page.$eval(
       'films-list',
-      (el, film1) => {
-        el['films'] = [film1];
+      (el, film) => {
+        el['films'] = [film];
       },
       film1,
     );
-
-    // dispose(); //store.dispose()
-    // state.films = [film1];
 
     await page.waitForChanges();
     const element = await page.find('films-list >>> button');
