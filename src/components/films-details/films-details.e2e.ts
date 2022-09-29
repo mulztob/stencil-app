@@ -1,35 +1,34 @@
-import { newE2EPage } from '@stencil/core/testing';
-import { film1FullDetails } from '../../store/store.testwrapper';
+import { E2EPage, newE2EPage } from '@stencil/core/testing';
+import { film1FullDetails } from '../../store/__mocks__/store';
 
-jest.setTimeout(60000);
-async function setupComponent() {
-  const page = await newE2EPage();
-
+jest.setTimeout(120000);
+async function setupComponent(page: E2EPage) {
   await page.setContent(`<films-details></films-details>`);
 
   await page.$eval(
     'films-details',
     (detailsNode, film) => {
-      detailsNode.episodeId = '1';
-      detailsNode.film = film;
+      detailsNode['episodeId'] = '1';
+      detailsNode['film'] = film;
     },
     film1FullDetails,
   );
 
   await page.waitForChanges();
-  return page;
 }
 
 describe('films-details, component details', () => {
   it('renders', async () => {
-    const page = await setupComponent();
+    const page = await newE2EPage();
+    await setupComponent(page);
 
     const element = await page.find('films-details');
     expect(element).toHaveClass('hydrated');
   });
 
   it('displays the specified name "The Phantom Menace" as H1', async () => {
-    const page = await setupComponent();
+    const page = await newE2EPage();
+    await setupComponent(page);
     const filmTitle = await page.find('films-details >>> h1');
     // console.log('film#1', filmTitle.textContent);
 
@@ -49,13 +48,15 @@ describe('films-details, component details', () => {
 
 describe('films-details, navigation', () => {
   it('displays a back button', async () => {
-    const page = await setupComponent();
+    const page = await newE2EPage();
+    await setupComponent(page);
     const back = await page.find('films-details >>> button');
     expect(back.innerText).toEqual('back');
   });
 
   it('back button should route', async () => {
-    const page = await setupComponent();
+    const page = await newE2EPage();
+    await setupComponent(page);
     const back = await page.find('films-details >>> button');
 
     const oldUrl = page.url();

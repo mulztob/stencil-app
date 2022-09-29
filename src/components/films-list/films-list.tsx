@@ -12,12 +12,7 @@ export class FilmsList {
   @Prop() films?: IFilm[] = [];
 
   render() {
-    return (
-      <div class="films-list">
-        {/* {console.log('films-list#render, state', state.films)} */}
-        {state.films?.length > 0 ? this.renderList(state.films) : this.renderList(this.films)}
-      </div>
-    );
+    return <div class="films-list">{state.films?.length > 0 ? this.renderList(state.films) : this.renderList(this.films)}</div>;
   }
 
   renderList(films: IFilm[]) {

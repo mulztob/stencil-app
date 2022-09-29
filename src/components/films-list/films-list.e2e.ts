@@ -1,5 +1,5 @@
 import { newE2EPage } from '@stencil/core/testing';
-import { film1 } from '../../store/store.testwrapper';
+import { film1 } from '../../store/__mocks__/store';
 
 jest.setTimeout(60000);
 

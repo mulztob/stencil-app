@@ -10,9 +10,10 @@ import { Route, match } from 'stencil-router-v2';
   shadow: true,
 })
 export class AppRoot {
-  componentWillLoad() {
+  async componentWillLoad() {
     //could be expanded with .then(films => films.populateAll('xxx'))
-    return Swapi.Films.find()
+    // FIXME: fails on tests, somehow the network is mocked in test context
+    return await Swapi.Films.find()
       .then(f => f.populateAll('characters'))
       .then(f => f.populateAll('vehicles'))
       .then(f => f.populateAll('species'))
@@ -20,8 +21,9 @@ export class AppRoot {
       .then(f => f.populateAll('starships'))
       .then(films => {
         state.films = films.resources.map(f => f.value);
-        // console.log('app-root#load', store.state.films);
-      });
+        console.log('app-root#load', state.films);
+      })
+      .catch(err => console.error(err));
   }
   render() {
     return (

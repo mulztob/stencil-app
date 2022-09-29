@@ -19,9 +19,8 @@ export const config: Config = {
   ],
   testing: {
     browserHeadless: false,
-    // browserSlowMo: 20000,
+    // browserSlowMo: 2000,
     // browserDevtools: true,
-
     // those two options are part of the Stencil Pull Request "feat: Jest ESM support #3256"
     // useESModules: true,
     // extensionsToTreatAsEsm: ['.ts', '.tsx', '.jsx'],
@@ -29,7 +28,7 @@ export const config: Config = {
     // transform: {
     //   '^.+\\.jsx$': 'babel-jest',
     //   '^.+\\.tsx$': 'babel-jest',
-    //   '^.+\\.ts$': 'babel-jest',
+    // '^.+\\.ts$': 'ts-jest',
     //   '^.+\\.js$': 'babel-jest',
     // },
     // transformIgnorePatterns: ['/node_modules/(?!(swapi-ts)/)'],
