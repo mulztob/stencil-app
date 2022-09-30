@@ -6,7 +6,9 @@ export const config: Config = {
   globalStyle: 'src/global/app.css',
   globalScript: 'src/global/app.ts',
   taskQueue: 'async',
+  sourceMap: true,
   tsconfig: './tsconfig.json',
+
   outputTargets: [
     {
       type: 'www',
@@ -17,7 +19,20 @@ export const config: Config = {
   ],
   testing: {
     browserHeadless: false,
-    browserSlowMo: 20000,
-    browserDevtools: true,
+    // browserSlowMo: 2000,
+    // browserDevtools: true,
+    // those two options are part of the Stencil Pull Request "feat: Jest ESM support #3256"
+    // useESModules: true,
+    // extensionsToTreatAsEsm: ['.ts', '.tsx', '.jsx'],
+
+    // transform: {
+    //   '^.+\\.jsx$': 'ts-jest',
+    //   '^.+\\.tsx$': 'ts-jest',
+    // '^.+\\.ts$': 'ts-jest',
+    //   '^.+\\.js$': 'ts-jest',
+    // },
+    // transformIgnorePatterns: ['node_modules/(?!(swapi-ts|lodash|@stencil/core/testing))', '(?!lodash)', '(?!@stencil/core/testing)'],
+
+    // moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'mjs', 'd.ts', 'json'],
   },
 };

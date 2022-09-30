@@ -1,7 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Component, h, Prop } from '@stencil/core';
-import { IPeople, ISpecie } from 'swapi-ts';
-import * as SWApi from 'swapi-ts';
-import store from '@store/store';
+import { IPeople, ISpecie, Species } from '@app/lib/swapi-ts';
+import { state } from '@store/store';
 
 @Component({
   tag: 'people-card',
@@ -12,8 +12,9 @@ export class PeopleCard {
   @Prop() person: IPeople;
   resolvedSpecies: ISpecie[] = [];
 
-  async componentWillLoad() {
+  async componentWillRender() {
     this.resolvedSpecies = [];
+
     if (this.person?.species?.length > 0) {
       const species = this.person.species;
 
@@ -30,12 +31,17 @@ export class PeopleCard {
   }
 
   private async updateState(maybeResolved: string | ISpecie) {
-    return (store.state.species[maybeResolved as string] = (await SWApi.Species.find(q => maybeResolved === q.url)).resources.at(0).value);
+    try {
+      if (typeof maybeResolved === 'string') return (state.species[maybeResolved as string] = (await Species.find(q => maybeResolved === q.url)).resources.at(0).value);
+      return maybeResolved as ISpecie;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  private loadFromState(url: string): ISpecie | string {
+  private loadFromState(url: string): string | ISpecie {
     if (url == null) return;
-    return store.state.species[url] ?? url;
+    return state.species[url] ?? url;
   }
 
   private needsSwapiResolve(species: string | ISpecie) {
@@ -50,7 +56,7 @@ export class PeopleCard {
           <h4>Name: {this.person.name}</h4>
           {/* <p>Id: {this.person.url}</p> */}
           <p>Gender: {this.person.gender}</p>
-          <p>Species: {this.resolvedSpecies.map(sp => sp.name).join(', ')}</p>
+          <p>Species: {this.resolvedSpecies.map(sp => sp.name).join(', ') ?? 'n/a'}</p>
         </div>
       </div>
     );

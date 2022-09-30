@@ -1,5 +1,7 @@
-import { Component, h } from '@stencil/core';
-import store from '@store/store';
+import Router from '@app/lib/router';
+import { Component, h, Prop } from '@stencil/core';
+import { state } from '@store/store';
+import { IFilm } from '@app/lib/swapi-ts';
 
 @Component({
   tag: 'films-list',
@@ -7,22 +9,24 @@ import store from '@store/store';
   shadow: true,
 })
 export class FilmsList {
+  @Prop() films?: IFilm[] = [];
+
   render() {
-    return <div class="films-list">{store.state.films?.length > 0 ? this.renderList() : 'no content'}</div>;
+    return <div class="films-list">{state.films?.length > 0 ? this.renderList(state.films) : this.renderList(this.films)}</div>;
   }
 
-  renderList() {
+  renderList(films: IFilm[]) {
     return (
       <div>
-        {store.state.films?.map(film => (
-          <p>
-            <stencil-route-link url={`/films/${film.episode_id}`}>
-              <button>
-                {film.title} (Episode {film.episode_id})
-              </button>
-            </stencil-route-link>
-          </p>
-        ))}
+        {films.length > 0
+          ? films.map(film => (
+              <div>
+                <button onClick={() => Router.push(`/films/${film.episode_id}`)}>
+                  {film.title} (Episode {film.episode_id})
+                </button>
+              </div>
+            ))
+          : 'no content'}
       </div>
     );
   }

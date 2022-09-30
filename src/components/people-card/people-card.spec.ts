@@ -1,8 +1,8 @@
 import { newSpecPage } from '@stencil/core/testing';
 import { PeopleCard } from './people-card';
-import * as swapi from 'swapi-ts';
+import { IPeople } from '../../lib/swapi-ts';
 
-const dummyPerson: swapi.IPeople = {
+const dummyPerson: IPeople = {
   birth_year: '',
   eye_color: '',
   films: [],
@@ -11,7 +11,7 @@ const dummyPerson: swapi.IPeople = {
   height: '',
   homeworld: '',
   mass: '',
-  name: '',
+  name: 'dummy',
   skin_color: '',
   created: undefined,
   edited: undefined,
@@ -29,7 +29,6 @@ describe('people-card functionality', () => {
 
   it('needsSwapiResolve returns true for string', async () => {
     const { rootInstance } = await newSpecPage({ components: [PeopleCard], html: '<people-card></people-card>' });
-
     expect(rootInstance.needsSwapiResolve(dummyPerson)).toBeFalsy();
   });
 });

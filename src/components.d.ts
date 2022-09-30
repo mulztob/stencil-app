@@ -5,15 +5,16 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { MatchResults } from "@stencil-community/router";
-import { IPeople } from "swapi-ts";
+import { IFilm, IPeople } from "@app/lib/swapi-ts";
 export namespace Components {
     interface AppRoot {
     }
     interface FilmsDetails {
-        "match": MatchResults;
+        "episodeId": string;
+        "film": IFilm;
     }
     interface FilmsList {
+        "films"?: IFilm[];
     }
     interface PeopleCard {
         "person": IPeople;
@@ -55,9 +56,11 @@ declare namespace LocalJSX {
     interface AppRoot {
     }
     interface FilmsDetails {
-        "match"?: MatchResults;
+        "episodeId"?: string;
+        "film"?: IFilm;
     }
     interface FilmsList {
+        "films"?: IFilm[];
     }
     interface PeopleCard {
         "person"?: IPeople;

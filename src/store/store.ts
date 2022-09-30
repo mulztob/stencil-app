@@ -1,22 +1,22 @@
 import { createStore } from '@stencil/store';
-import { IFilm, ISpecie } from 'swapi-ts';
+import { IFilm, IPeople, ISpecie } from '@app/lib/swapi-ts';
 
 interface State {
   films: IFilm[];
   species: Record<string, ISpecie>;
+  people: Record<string, IPeople>;
 }
 
-const store = createStore<State>({
+export const { dispose, reset, state, onChange, use, forceUpdate } = createStore<State>({
   films: [],
   species: {},
+  people: {},
 });
 
-store.onChange('films', value => {
-  store.state.films = value;
+onChange('films', value => {
+  state.films = value;
 });
 
-store.onChange('species', value => {
-  store.state.species = value;
+onChange('species', value => {
+  state.species = value;
 });
-
-export default store;

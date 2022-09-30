@@ -1,25 +1,34 @@
 import { newE2EPage } from '@stencil/core/testing';
-import { resetStore } from '@store/store.testwrapper';
+import { film1 } from '../../store/__mocks__/store';
 
-beforeEach(() => {
-  resetStore();
-});
+jest.setTimeout(60000);
 
 describe('films-list', () => {
   it('renders', async () => {
     const page = await newE2EPage();
-    // await page.setContent('<films-list></films-list>');
+    await page.setContent('<films-list></films-list>');
+    await page.waitForChanges();
 
     const element = await page.find('films-list');
     expect(element).toHaveClass('hydrated');
   });
 
-  it('contains a "Profile Page" button', async () => {
+  it('contains a "The Phantom Menace (Episode 1)" button', async () => {
     const page = await newE2EPage();
-    // await page.setContent('<films-list></films-list>');
-    // console.log('page: ', page);
-    const element = await page.find('films-list >>> div');
-    console.log('element: ', element);
-    expect(element.textContent).toEqual('Profile page');
+    await page.setContent('<films-list></films-list>');
+    await page.waitForChanges();
+
+    await page.$eval(
+      'films-list',
+      (el, film) => {
+        el['films'] = [film];
+      },
+      film1,
+    );
+
+    await page.waitForChanges();
+    const element = await page.find('films-list >>> button');
+    // console.log('element: ', element[0].innerText, element.length);
+    expect(element.innerText).toEqual('The Phantom Menace (Episode 1)');
   });
 });
