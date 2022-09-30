@@ -19,8 +19,6 @@ export const resetStore = () => {
   dispose();
   state.films = [film1FullDetails];
   state.species = species;
-  // console.log('store state (films): ', store.state.films);
-  // console.log('store state (species): ', store.state.species);
 };
 
 export const film1FullDetails: IFilm = {

@@ -198,6 +198,11 @@ function collectionBuilder<T>(resource: ResourcesType) {
       return request(`${SWCollection.root}?page=${page}`);
     }
 
+    public static async asArray(predicate?: (single: T) => boolean) {
+      const collection = await this.find(predicate);
+      return collection.resources.map(r => r.value);
+    }
+
     public static async find(predicate?: (single: T) => boolean) {
       const { count, results: firstResult } = await SWCollection.getPage();
       const pages = Math.ceil(count / firstResult.length);

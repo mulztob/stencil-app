@@ -30,7 +30,6 @@ describe('films-details, component details', () => {
     const page = await newE2EPage();
     await setupComponent(page);
     const filmTitle = await page.find('films-details >>> h1');
-    // console.log('film#1', filmTitle.textContent);
 
     // const element = filmTitle.shadowRoot.querySelector('div');
     // const element = filmTitle.querySelector('div');

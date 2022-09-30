@@ -11,14 +11,7 @@ import { IFilm } from '@app/lib/swapi-ts';
 export class FilmsList {
   @Prop() films?: IFilm[] = [];
 
-  // connectedCallback() {
-  //   window.setInterval(() => {
-  //     console.log('interval', state.films);
-  //   }, 2000);
-  // }
-
   render() {
-    console.log('render#state', state.films);
     return <div class="films-list">{state.films?.length > 0 ? this.renderList(state.films) : this.renderList(this.films)}</div>;
   }
 

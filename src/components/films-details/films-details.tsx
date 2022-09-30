@@ -14,18 +14,15 @@ export class FilmsDetails {
   @Prop() film: IFilm;
 
   componentWillRender() {
-    console.log(`film-details#willRender`, this.episodeId, state.films);
     if (state.films.length > 0 && this.episodeId) {
       const filmWithRightId = state.films.filter(f => f.episode_id == this.episodeId);
       this.film = filmWithRightId.length > 0 ? (this.film = filmWithRightId[0]) : (this.film = null);
-      console.log('film: ', this.film);
     }
   }
 
   render() {
     return this.film ? (
       <div class="films-details">
-        {/* {console.log('films-details#render', this.film)} */}
         <button onClick={() => Router.push('/films')}>back</button>
         <h1>{this.film?.title}</h1>
         <p>{this.film.opening_crawl}</p>

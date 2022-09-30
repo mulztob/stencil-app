@@ -31,8 +31,12 @@ export class PeopleCard {
   }
 
   private async updateState(maybeResolved: string | ISpecie) {
-    if (typeof maybeResolved === 'string') return (state.species[maybeResolved as string] = (await Species.find(q => maybeResolved === q.url)).resources.at(0).value);
-    return maybeResolved as ISpecie;
+    try {
+      if (typeof maybeResolved === 'string') return (state.species[maybeResolved as string] = (await Species.find(q => maybeResolved === q.url)).resources.at(0).value);
+      return maybeResolved as ISpecie;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   private loadFromState(url: string): string | ISpecie {
@@ -52,7 +56,7 @@ export class PeopleCard {
           <h4>Name: {this.person.name}</h4>
           {/* <p>Id: {this.person.url}</p> */}
           <p>Gender: {this.person.gender}</p>
-          <p>Species: {this.resolvedSpecies.map(sp => sp.name).join(', ')}</p>
+          <p>Species: {this.resolvedSpecies.map(sp => sp.name).join(', ') ?? 'n/a'}</p>
         </div>
       </div>
     );

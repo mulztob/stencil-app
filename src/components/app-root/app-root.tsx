@@ -1,8 +1,7 @@
 import { Component, h } from '@stencil/core';
-import { Films } from '@app/lib/swapi-ts';
-import { state } from '@store/store';
 import Router from '@app/lib/router';
 import { Route, match } from 'stencil-router-v2';
+import { SwapiService } from '@app/lib/swapi.service';
 
 @Component({
   tag: 'app-root',
@@ -12,17 +11,7 @@ import { Route, match } from 'stencil-router-v2';
 export class AppRoot {
   async componentWillLoad() {
     //could be expanded with .then(films => films.populateAll('xxx'))
-    return await Films.find()
-      .then(f => f.populateAll('characters'))
-      .then(f => f.populateAll('vehicles'))
-      .then(f => f.populateAll('species'))
-      .then(f => f.populateAll('planets'))
-      .then(f => f.populateAll('starships'))
-      .then(films => {
-        state.films = films.resources.map(f => f.value);
-        console.log('root#load', state.films);
-      })
-      .catch(err => console.error(err));
+    await SwapiService.InitialLoad();
   }
   render() {
     return (
