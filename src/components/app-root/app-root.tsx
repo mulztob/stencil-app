@@ -1,7 +1,7 @@
 import { Component, h } from '@stencil/core';
 import Router from '@app/lib/router';
 import { Route, match } from 'stencil-router-v2';
-import { SwapiService } from '@app/lib/swapi.service';
+import { service } from '@app/lib/swapi.service';
 
 @Component({
   tag: 'app-root',
@@ -10,8 +10,7 @@ import { SwapiService } from '@app/lib/swapi.service';
 })
 export class AppRoot {
   async componentWillLoad() {
-    //could be expanded with .then(films => films.populateAll('xxx'))
-    await SwapiService.InitialLoad();
+    return await service.isLoaded;
   }
   render() {
     return (
