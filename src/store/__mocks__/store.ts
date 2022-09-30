@@ -1,5 +1,5 @@
 import { createStore } from '@stencil/store';
-import { IFilm, ISpecie } from 'swapi-ts';
+import { IFilm, ISpecie } from '@app/lib/swapi-ts';
 
 interface State {
   films: IFilm[];

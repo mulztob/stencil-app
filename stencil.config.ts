@@ -26,14 +26,13 @@ export const config: Config = {
     // extensionsToTreatAsEsm: ['.ts', '.tsx', '.jsx'],
 
     // transform: {
-    //   '^.+\\.jsx$': 'babel-jest',
-    //   '^.+\\.tsx$': 'babel-jest',
+    //   '^.+\\.jsx$': 'ts-jest',
+    //   '^.+\\.tsx$': 'ts-jest',
     // '^.+\\.ts$': 'ts-jest',
-    //   '^.+\\.js$': 'babel-jest',
+    //   '^.+\\.js$': 'ts-jest',
     // },
-    // transformIgnorePatterns: ['/node_modules/(?!(swapi-ts)/)'],
+    // transformIgnorePatterns: ['node_modules/(?!(swapi-ts|lodash|@stencil/core/testing))', '(?!lodash)', '(?!@stencil/core/testing)'],
 
     // moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'mjs', 'd.ts', 'json'],
   },
-  // maxConcurrentWorkers: 1,
 };

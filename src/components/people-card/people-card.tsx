@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Component, h, Prop } from '@stencil/core';
-import { IPeople, ISpecie, Species } from 'swapi-ts';
+import { IPeople, ISpecie, Species } from '@app/lib/swapi-ts';
 import { state } from '@store/store';
 
 @Component({

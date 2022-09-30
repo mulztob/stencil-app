@@ -1,7 +1,7 @@
 import { Component, h } from '@stencil/core';
-import * as Swapi from 'swapi-ts';
+import { Films } from '@app/lib/swapi-ts';
 import { state } from '@store/store';
-import Router from '@app/router';
+import Router from '@app/lib/router';
 import { Route, match } from 'stencil-router-v2';
 
 @Component({
@@ -12,8 +12,7 @@ import { Route, match } from 'stencil-router-v2';
 export class AppRoot {
   async componentWillLoad() {
     //could be expanded with .then(films => films.populateAll('xxx'))
-    // FIXME: fails on tests, somehow the network is mocked in test context
-    return await Swapi.Films.find()
+    return await Films.find()
       .then(f => f.populateAll('characters'))
       .then(f => f.populateAll('vehicles'))
       .then(f => f.populateAll('species'))
@@ -21,7 +20,7 @@ export class AppRoot {
       .then(f => f.populateAll('starships'))
       .then(films => {
         state.films = films.resources.map(f => f.value);
-        console.log('app-root#load', state.films);
+        console.log('root#load', state.films);
       })
       .catch(err => console.error(err));
   }

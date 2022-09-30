@@ -1,17 +1,18 @@
 import { createStore } from '@stencil/store';
-import { IFilm, ISpecie } from 'swapi-ts';
+import { IFilm, ISpecie } from '@app/lib/swapi-ts';
 
 interface State {
   films: IFilm[];
   species: Record<string, ISpecie>;
 }
 
-export const { dispose, reset, state, onChange } = createStore<State>({
+export const { dispose, reset, state, onChange, use, forceUpdate } = createStore<State>({
   films: [],
   species: {},
 });
 
 onChange('films', value => {
+  console.log('onchange', value);
   state.films = value;
 });
 
