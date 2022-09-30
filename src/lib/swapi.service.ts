@@ -6,6 +6,8 @@ interface hasUrl {
 }
 
 let singletonService: SwapiService;
+
+//FIXME: make SwapiService a full facade for the store and hide store inside the service
 class SwapiService {
   private loadFinished = false;
 
