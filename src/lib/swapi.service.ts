@@ -11,18 +11,9 @@ let singletonService: SwapiService;
 class SwapiService {
   private loadFinished = false;
 
-  public get isLoaded() {
-    return this.loadFinished;
-  }
-
-  private set isLoaded(value) {
-    this.loadFinished = value;
-  }
-  // @Event() isLoaded: EventEmitter<boolean>;
-
-  private async InitialLoad() {
+  async Load() {
     console.log('initialLoad');
-    if (this.isLoaded) return;
+    if (this.loadFinished) return store.state;
 
     store.reset();
     try {
@@ -32,10 +23,10 @@ class SwapiService {
       store.state.people = this.populatePeople(people, species);
       store.state.species = this.transformArrayToRecord(species);
 
-      this.isLoaded = true;
+      this.loadFinished = true;
       return store.state;
     } catch (error) {
-      this.isLoaded = false;
+      this.loadFinished = false;
       console.error(error);
       return;
     }
@@ -69,7 +60,7 @@ class SwapiService {
 
   static {
     singletonService = new SwapiService();
-    singletonService.InitialLoad();
+    singletonService.Load();
   }
 }
 

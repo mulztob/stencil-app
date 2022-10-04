@@ -10,7 +10,7 @@ import { service } from '@app/lib/swapi.service';
 })
 export class AppRoot {
   async componentWillLoad() {
-    return service.isLoaded;
+    return await service.Load();
   }
 
   render() {
