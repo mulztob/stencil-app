@@ -10,7 +10,10 @@
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "prerender": "npx stencil build --prerender",
+    "preserve": "npm run prerender",
+    "serve": "npx http-server ./www --cors"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.18.6",
@@ -30,7 +33,6 @@
     "typescript": "^4.8.3"
   },
   "dependencies": {
-    "lodash": "^4.17.21",
-    "patch-package": "^6.4.7"
+    "lodash": "^4.17.21"
   }
 }
