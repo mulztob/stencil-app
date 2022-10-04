@@ -1,5 +1,17 @@
+import { Build } from '@stencil/core';
 import _ from 'lodash';
-import { fetch } from 'cross-fetch';
+//FIXME: stencil is quite flaky in this aspect:
+//  *prerender* only works if you use browser/node fetch
+//  *tests* only work if you use a different fetch
+//  *devmove* works either way
+let fetch = globalThis.fetch;
+
+(async () => {
+  if (Build.isTesting) {
+    // import { fetch } from 'cross-fetch';
+    fetch = (await import('cross-fetch')).fetch;
+  }
+})();
 
 export interface IFilm {
   characters: string[] | IPeople[];
