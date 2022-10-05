@@ -12,6 +12,7 @@
     "test": "stencil test --spec",
     "test:watch": "stencil test --spec --e2e --watchAll",
     "e2e": "npx playwright test",
+    "e2e:ci": "npx playwright test --project webkit --project chromium --project firefox",
     "e2e:report": "npx playwright show-report",
     "e2e:visible": "npx playwright test --project visible",
     "generate": "stencil generate",
