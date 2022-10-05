@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright'; // 1
 
 test.describe('app-root', () => {
   test('expect title "Star Wars API Test App using Stencil.JS"', async ({ page }) => {
@@ -75,5 +76,19 @@ starship, custodian of the
 stolen plans that can save her
 people and restore
 freedom to the galaxy....`);
+  });
+});
+
+test.describe('accessability', () => {
+  test.skip('axe suite: list view', async ({ page }) => {
+    await page.goto('', { waitUntil: 'networkidle' });
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze(); // 4
+    expect(accessibilityScanResults.violations).toEqual([]); // 5
+  });
+
+  test.skip('axe suite: detail view', async ({ page }) => {
+    await page.goto('/films/4', { waitUntil: 'networkidle' });
+    const accessibilityScanResults = await new AxeBuilder({ page }).analyze(); // 4
+    expect(accessibilityScanResults.violations).toEqual([]); // 5
   });
 });
