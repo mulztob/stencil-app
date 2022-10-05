@@ -16,7 +16,8 @@
     "generate": "stencil generate",
     "prerender": "npx stencil build --prerender",
     "preserve": "npm run prerender",
-    "serve": "npx http-server ./www --cors"
+    "serve": "npx http-server ./www --cors",
+    "test-ct": "playwright test -c playwright-ct.config.ts"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.4.5",
