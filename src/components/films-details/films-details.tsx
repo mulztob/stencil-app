@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, h, State } from '@stencil/core';
 import { IFilm, IPeople, Films } from '@app/lib/swapi-ts';
 import { state } from '@store/store';
 import Router from '@app/lib/router';
@@ -11,12 +11,12 @@ import Router from '@app/lib/router';
 })
 export class FilmsDetails {
   @Prop() episodeId: string;
-  @Prop() film: IFilm;
+  @State() @Prop() film: IFilm;
 
   componentWillRender() {
     if (state.films.length > 0 && this.episodeId) {
       const filmWithRightId = state.films.filter(f => f.episode_id == this.episodeId);
-      this.film = filmWithRightId.length > 0 ? (this.film = filmWithRightId[0]) : (this.film = null);
+      this.film = filmWithRightId.length > 0 ? filmWithRightId[0] : null;
     }
   }
 
