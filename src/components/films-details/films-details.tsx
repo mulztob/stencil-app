@@ -25,7 +25,7 @@ export class FilmsDetails {
       <div class="films-details">
         <button onClick={() => Router.push('/films')}>back</button>
         <h1>{this.film?.title}</h1>
-        <p>{this.film.opening_crawl}</p>
+        <p class="abstract">{this.film.opening_crawl}</p>
         <h3>Created by {this.film.created}</h3>
         <h3>Episode {this.film.episode_id}</h3>
         <h3>Directed by {this.film.director}</h3>
