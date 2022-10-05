@@ -4,8 +4,6 @@
   "version": "0.0.1",
   "description": "StarWars Api Test App (swapi.dev)",
   "license": "MIT",
-  "type": "module",
-  "module": "swapi-stencil",
   "scripts": {
     "build": "stencil build",
     "start": "stencil build --dev --watch --serve",
