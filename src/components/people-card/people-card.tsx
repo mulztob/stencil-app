@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Component, h, Prop } from '@stencil/core';
-import { IPeople, ISpecie, Species } from '@app/lib/swapi-ts';
-import { state } from '@store/store';
+import { IPeople, ISpecie, Species } from '../../lib/swapi-ts';
+import { state } from '../../store/store';
 
 @Component({
   tag: 'people-card',
@@ -32,7 +32,11 @@ export class PeopleCard {
 
   private async updateState(maybeResolved: string | ISpecie) {
     try {
-      if (typeof maybeResolved === 'string') return (state.species[maybeResolved as string] = (await Species.find(q => maybeResolved === q.url)).resources.at(0).value);
+      if (typeof maybeResolved === 'string') {
+        const species = (await Species.find(q => maybeResolved === q.url)).resources.at(0).value;
+        state.species[maybeResolved as string] = species;
+        return species;
+      }
       return maybeResolved as ISpecie;
     } catch (error) {
       console.log(error);
