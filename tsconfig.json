@@ -16,20 +16,6 @@
     "jsx": "react",
     "jsxFactory": "h",
     "baseUrl": ".",
-    "paths": {
-      "@app/*": [
-        "src/*"
-      ],
-      "@comp/*": [
-        "src/components/*"
-      ],
-      "@assets/*": [
-        "src/assets/*"
-      ],
-      "@store/*": [
-        "src/store/*"
-      ]
-    }
   },
   "include": [
     "src"

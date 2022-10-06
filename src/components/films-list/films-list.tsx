@@ -1,7 +1,7 @@
-import Router from '@app/lib/router';
+import Router from '../..//lib/router';
 import { Component, h, Prop } from '@stencil/core';
-import { state } from '@store/store';
-import { IFilm } from '@app/lib/swapi-ts';
+import { state } from '../../store/store';
+import { IFilm } from '../..//lib/swapi-ts';
 
 @Component({
   tag: 'films-list',

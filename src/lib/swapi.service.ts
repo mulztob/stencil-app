@@ -1,5 +1,5 @@
 import * as swapi from './swapi-ts';
-import * as store from '@store/store';
+import * as store from '../store/store';
 
 interface hasUrl {
   url: string;

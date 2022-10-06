@@ -1,7 +1,7 @@
 import { createStore } from '@stencil/store';
-import { IFilm, IPeople, ISpecie } from '@app/lib/swapi-ts';
+import { IFilm, IPeople, ISpecie } from '../lib/swapi-ts';
 
-interface State {
+export interface State {
   films: IFilm[];
   species: Record<string, ISpecie>;
   people: Record<string, IPeople>;

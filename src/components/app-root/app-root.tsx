@@ -1,7 +1,7 @@
 import { Component, h } from '@stencil/core';
-import Router from '@app/lib/router';
+import Router from '../../lib/router';
 import { Route, match } from 'stencil-router-v2';
-import { service } from '@app/lib/swapi.service';
+import { service } from '../../lib/swapi.service';
 
 @Component({
   tag: 'app-root',

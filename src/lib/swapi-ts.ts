@@ -3,13 +3,14 @@ import _ from 'lodash';
 //FIXME: stencil is quite flaky in this aspect:
 //  *prerender* only works if you use browser/node fetch
 //  *tests* only work if you use a different fetch
-//  *devmove* works either way
+//  *devmode* works either way
 let fetch = globalThis.fetch;
 
 (async () => {
   if (Build.isTesting) {
-    // import { fetch } from 'cross-fetch';
+    // console.log('use cross-fetch for testing');
     fetch = (await import('cross-fetch')).fetch;
+    globalThis.fetch = fetch;
   }
 })();
 

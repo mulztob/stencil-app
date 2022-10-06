@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { IFilm, IPeople } from "@app/lib/swapi-ts";
+import { IFilm, IPeople } from "./lib/swapi-ts";
 export namespace Components {
     interface AppRoot {
     }
