@@ -12,7 +12,6 @@ class SwapiService {
   private loadFinished = false;
 
   async Load() {
-    console.log('initialLoad');
     if (this.loadFinished) return store.state;
 
     store.reset();
