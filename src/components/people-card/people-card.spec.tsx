@@ -1,7 +1,11 @@
 import { h } from '@stencil/core';
 import { newSpecPage } from '@stencil/core/testing';
 import { PeopleCard } from './people-card';
-import { IPeople, ISpecie } from '../../lib/swapi-ts';
+import { IPeople, ISpecie, Species } from '../../lib/swapi-ts';
+import { species } from '../../store/__mocks__/species';
+
+jest.mock('../../store/store');
+import { dispose } from '../../store/store';
 
 const dummyPerson: IPeople = {
   birth_year: '',
@@ -22,62 +26,18 @@ const dummyPerson: IPeople = {
   vehicles: [],
 };
 
-const obiWan: IPeople = {
-  name: 'Obi-Wan Kenobi',
-  height: '182',
-  mass: '77',
-  hair_color: 'auburn, white',
-  skin_color: 'fair',
-  eye_color: 'blue-gray',
-  birth_year: '57BBY',
-  gender: 'male',
-  homeworld: 'https://swapi.dev/api/planets/20/',
-  films: [
-    'https://swapi.dev/api/films/1/',
-    'https://swapi.dev/api/films/2/',
-    'https://swapi.dev/api/films/3/',
-    'https://swapi.dev/api/films/4/',
-    'https://swapi.dev/api/films/5/',
-    'https://swapi.dev/api/films/6/',
-  ],
-  species: [],
-  vehicles: ['https://swapi.dev/api/vehicles/38/'],
-  starships: [
-    'https://swapi.dev/api/starships/48/',
-    'https://swapi.dev/api/starships/59/',
-    'https://swapi.dev/api/starships/64/',
-    'https://swapi.dev/api/starships/65/',
-    'https://swapi.dev/api/starships/74/',
-  ],
-  created: new Date(Date.parse('2014-12-10T16:16:29.192000Z')),
-  edited: new Date(Date.parse('2014-12-20T21:17:50.325000Z')),
-  url: 'https://swapi.dev/api/people/10/',
-};
+const speciesSpy = jest.spyOn(Species, 'find');
 
-const human = {
-  name: 'Human',
-  classification: 'mammal',
-  designation: 'sentient',
-  average_height: '180',
-  skin_colors: 'caucasian, black, asian, hispanic',
-  hair_colors: 'blonde, brown, black, red',
-  eye_colors: 'brown, blue, green, hazel, grey, amber',
-  average_lifespan: '120',
-  homeworld: 'https://swapi.dev/api/planets/9/',
-  language: 'Galactic Basic',
-  people: ['https://swapi.dev/api/people/66/', 'https://swapi.dev/api/people/67/', 'https://swapi.dev/api/people/68/', 'https://swapi.dev/api/people/74/'],
-  films: [
-    'https://swapi.dev/api/films/1/',
-    'https://swapi.dev/api/films/2/',
-    'https://swapi.dev/api/films/3/',
-    'https://swapi.dev/api/films/4/',
-    'https://swapi.dev/api/films/5/',
-    'https://swapi.dev/api/films/6/',
-  ],
-  created: '2014-12-10T13:52:11.567000Z',
-  edited: '2014-12-20T21:36:42.136000Z',
-  url: 'https://swapi.dev/api/species/1/',
-};
+const human = species.find(p => p.name == 'Human');
+
+beforeEach(() => {
+  speciesSpy.mockClear();
+  dispose();
+});
+
+afterAll(() => {
+  jest.restoreAllMocks();
+});
 
 describe('people-card functionality', () => {
   it('needsSwapiResolve returns true for string', async () => {
@@ -95,18 +55,27 @@ describe('people-card functionality', () => {
     expect(r.loadFromState('')).toBe(dummyPerson.url);
   });
 
-  it('updateState should return human', async () => {
+  it('updateState should return Human', async () => {
     const r = await newPeopleCard();
     const resolved = (await r.updateState('https://swapi.dev/api/species/1/')) as ISpecie;
+    expect(speciesSpy.mock.calls.length).toBe(1);
     expect(resolved).toMatchObject(human);
   }, 30000);
 
-  it('updateState should not return human', async () => {
+  it('updateState should not return Human', async () => {
     const r = await newPeopleCard();
     const resolved = (await r.updateState('https://swapi.dev/api/species/10/')) as ISpecie;
     expect(resolved).not.toMatchObject(human);
     expect(resolved).not.toBe(undefined);
+    expect(speciesSpy.mock.calls.length).toBe(1);
   }, 30000);
+
+  it('updateState should not fetch on object', async () => {
+    const r = await newPeopleCard();
+    const resolved = (await r.updateState(human)) as ISpecie;
+    expect(speciesSpy.mock.calls.length).toBe(0);
+    expect(resolved).toMatchObject(human);
+  });
 });
 async function newPeopleCard(person: IPeople = dummyPerson) {
   const { rootInstance } = await newSpecPage({ components: [PeopleCard], template: () => <people-card person={person}></people-card> });

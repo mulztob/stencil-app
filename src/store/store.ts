@@ -5,12 +5,14 @@ export interface State {
   films: IFilm[];
   species: Record<string, ISpecie>;
   people: Record<string, IPeople>;
+  initialLoad: boolean;
 }
 
 export const { dispose, reset, state, onChange, use, forceUpdate } = createStore<State>({
   films: [],
   species: {},
   people: {},
+  initialLoad: false,
 });
 
 onChange('films', value => {

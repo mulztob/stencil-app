@@ -1,37 +1,34 @@
-import * as swapi from './swapi-ts';
 import * as store from '../store/store';
+import { Films, IFilm, IPeople, ISpecie, People, Species } from './swapi-ts';
 
 interface hasUrl {
   url: string;
 }
-
 let singletonService: SwapiService;
 
 //FIXME: make SwapiService a full facade for the store and hide store inside the service
 class SwapiService {
-  private loadFinished = false;
-
   async Load() {
-    if (this.loadFinished) return store.state;
+    if (store.state && store.state?.initialLoad) return store.state;
 
     store.reset();
     try {
-      const [films, species, people] = await Promise.all([swapi.Films.asArray(), swapi.Species.asArray(), swapi.People.asArray()]);
+      const [films, species, people] = await Promise.all([Films.asArray(), Species.asArray(), People.asArray()]);
 
       store.state.films = this.populateFilms(films, people, species);
       store.state.people = this.populatePeople(people, species);
       store.state.species = this.transformArrayToRecord(species);
 
-      this.loadFinished = true;
+      store.state.initialLoad = true;
       return store.state;
     } catch (error) {
-      this.loadFinished = false;
+      store.state.initialLoad = false;
       console.error(error);
       return;
     }
   }
 
-  private populatePeople(people: swapi.IPeople[], species: swapi.ISpecie[]): Record<string, swapi.IPeople> {
+  private populatePeople(people: IPeople[], species: ISpecie[]): Record<string, IPeople> {
     const populated = people.map(p => {
       return {
         ...p,
@@ -47,7 +44,7 @@ class SwapiService {
     return resultRecord;
   }
 
-  private populateFilms(films: swapi.IFilm[], people: swapi.IPeople[], species: swapi.ISpecie[]) {
+  private populateFilms(films: IFilm[], people: IPeople[], species: ISpecie[]): IFilm[] {
     return films.map(f => {
       return {
         ...f,
