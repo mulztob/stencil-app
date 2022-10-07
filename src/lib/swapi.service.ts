@@ -32,10 +32,14 @@ class SwapiService {
     const populated = people.map(p => {
       return {
         ...p,
-        species: species.filter(resolved => (p.species as string[]).includes(resolved.url)),
+        species: this.resolveByUrl(p.species as string[], species),
       };
     });
     return this.transformArrayToRecord(populated);
+  }
+
+  private resolveByUrl<T extends hasUrl>(toResolve: string[], items: T[]) {
+    return items.filter(q => toResolve.includes(q.url));
   }
 
   private transformArrayToRecord<T extends hasUrl>(items: T[]): Record<string, T> {
@@ -48,8 +52,8 @@ class SwapiService {
     return films.map(f => {
       return {
         ...f,
-        characters: people.filter(resolved => (f.characters as string[]).includes(resolved.url)),
-        species: species.filter(resolved => (f.species as string[]).includes(resolved.url)),
+        characters: this.resolveByUrl(f.characters as string[], people),
+        species: this.resolveByUrl(f.species as string[], species),
       };
     });
   }
